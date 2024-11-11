@@ -15,6 +15,6 @@ public class SurveyUpdateDTO {
     @Unique(entity = Survey.class, field = "title")
     private String title;
     private String description;
-    @Exists(entity = Owner.class, message = "Cet owner n'existe pas.")
+    @Exists(entity = Owner.class, message = "owner not found.")
     private Long ownerId ;
 }
