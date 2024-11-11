@@ -1,4 +1,4 @@
-package com.sanaa.brif7.dev_state.demo;
+package com.sanaa.brif7.SurveyLens.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

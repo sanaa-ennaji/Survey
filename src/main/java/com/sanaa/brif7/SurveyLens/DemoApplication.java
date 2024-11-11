@@ -1,4 +1,4 @@
-package com.sanaa.brif7.dev_state.demo;
+package com.sanaa.brif7.SurveyLens;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
