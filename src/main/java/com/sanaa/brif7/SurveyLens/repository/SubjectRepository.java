@@ -1,4 +1,7 @@
 package com.sanaa.brif7.SurveyLens.repository;
 
-public interface SubjectRepository {
+import com.sanaa.brif7.SurveyLens.entity.Subject;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SubjectRepository  extends JpaRepository<Subject, Long> {
 }
