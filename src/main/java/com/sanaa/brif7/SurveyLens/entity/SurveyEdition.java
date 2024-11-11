@@ -23,11 +23,11 @@ public class SurveyEdition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @PastOrPresent(message = "La date de création doit être dans le passé ou aujourd'hui.")
+    @PastOrPresent(message = "date should be in the future.")
     private LocalDate creationDate;
 
     @NotNull
-    @Future(message = "La date de début doit être dans le futur.")
+    @Future(message = "date is in the paste.")
     private LocalDate startDate;
 
     @NotNull
