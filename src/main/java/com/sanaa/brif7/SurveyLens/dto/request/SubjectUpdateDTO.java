@@ -1,5 +1,6 @@
 package com.sanaa.brif7.SurveyLens.dto.request;
 
+import com.sanaa.brif7.SurveyLens.annotation.Exists;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.entity.SurveyEdition;
 import lombok.AllArgsConstructor;
