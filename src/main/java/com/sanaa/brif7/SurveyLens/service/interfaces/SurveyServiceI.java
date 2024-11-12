@@ -6,7 +6,7 @@ import com.sanaa.brif7.SurveyLens.dto.response.SurveyResponseDTO;
 
 import java.util.List;
 
-public interface SurveyEditionI {
+public interface SurveyServiceI {
     SurveyResponseDTO create(SurveyCreateDTO createDTO);
     SurveyResponseDTO findById(Long id);
     List<SurveyResponseDTO> findAll();
