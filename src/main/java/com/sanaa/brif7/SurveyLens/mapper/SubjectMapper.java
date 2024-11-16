@@ -4,30 +4,31 @@ import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
+import com.sanaa.brif7.SurveyLens.mapper.components.SubjectResolver;
+import com.sanaa.brif7.SurveyLens.mapper.components.SurveyEditionResolver;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {SubjectEmbeddebleMapper.class, SurveyEditionMapper.class, QuestionEmbeddebleMapper.class})
-public interface SubjectMapper {
+@Mapper(componentModel = "spring",uses = {SurveyEditionResolver.class , SubjectResolver.class})
+public interface SubjectMapper extends GenericMapper<Subject, SubjectCreateDTO, SubjectUpdateDTO, SubjectResponseDTO> {
 
-    SubjectMapper INSTANCE = Mappers.getMapper(SubjectMapper.class);
+    @Override
+    @Mapping(target = "surveyEdition", source = "surveyEditionId")
+    @Mapping(target = "parentSubject", source = "parentSubjectId")
+    Subject toEntity(SubjectCreateDTO subjectCreateDTO);
 
+    @Override
+    @Mapping(target = "surveyEdition", source = "surveyEditionId")
+    @Mapping(target = "parentSubject", source = "parentSubjectId")
+    void updateEntityFromDTO(SubjectUpdateDTO SubjectUpdateDTO, @MappingTarget Subject entity);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "parentSubject.id", source = "parentSubjectId")
-    @Mapping(target = "surveyEdition.id", source = "surveyEditionId")
-    Subject toEntity(SubjectCreateDTO dto);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "parentSubject.id", source = "parentSubjectId")
-    @Mapping(target = "surveyEdition.id", source = "surveyEditionId")
-    void updateEntityFromDto(SubjectUpdateDTO dto, @MappingTarget Subject subject);
-
-    @Mapping(target = "parentSubject", source = "parentSubject")
-    @Mapping(target = "subSubjects", source = "subSubjects")
+    @Override
     @Mapping(target = "surveyEdition", source = "surveyEdition")
-    @Mapping(target = "questions", source = "questions")
-    SubjectResponseDTO toResponseDto(Subject subject);
+    @Mapping(target = "parentSubject", source = "parentSubject")
+    SubjectResponseDTO toDTO(Subject subject);
 }
+
+
+
+

@@ -1,6 +1,7 @@
 package com.sanaa.brif7.SurveyLens.controller;
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SurveyResponseDTO;
@@ -9,6 +10,9 @@ import com.sanaa.brif7.SurveyLens.service.implementations.SurveyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,12 +40,21 @@ public class SurveyController {
         return new ResponseEntity<>(survey, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<PageDTO<SurveyResponseDTO>> getAllSurveysPaginated(
+    public ResponseEntity<PaginationDTO<SurveyResponseDTO>> getAllSurveysPaginated(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
-        PageDTO<SurveyResponseDTO> surveys = surveyService.findAll(page, size);
-        return new ResponseEntity<>(surveys, HttpStatus.OK);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<SurveyResponseDTO> surveys = surveyService.findAll(pageable);
+        PaginationDTO<SurveyResponseDTO> paginationDTO = new PaginationDTO<>(
+                surveys.getContent(),
+                surveys.getPageable().getPageNumber(),
+                surveys.getPageable().getPageSize(),
+                surveys.getTotalElements(),
+                surveys.getTotalPages(),
+                surveys.isLast()
+        );
+        return new ResponseEntity<>(paginationDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

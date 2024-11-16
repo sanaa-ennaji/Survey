@@ -2,6 +2,7 @@ package com.sanaa.brif7.SurveyLens.controller;
 
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
+import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
@@ -23,7 +24,7 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @PostMapping
-    public ResponseEntity<SubjectResponseDTO> createSubject(@Valid @RequestBody CreateSubjectDTO createSubjectDTO) {
+    public ResponseEntity<SubjectResponseDTO> createSubject(@Valid @RequestBody SubjectCreateDTO createSubjectDTO) {
         SubjectResponseDTO subject = subjectService.create(createSubjectDTO);
         return new ResponseEntity<>(subject, HttpStatus.OK);
     }
@@ -38,20 +39,20 @@ public class SubjectController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
-        SubjectResponseDTO subjects = subjectService.findAll();
+        SubjectResponseDTO subjects = (SubjectResponseDTO) subjectService.findAll();
         return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSubject(@Exists(entity = Subject.class , message = "subject not found.") @PathVariable("id") Long id) {
         subjectService.deleteById(id);
-        return new ResponseEntity<>("Subject est supprimé avec succès", HttpStatus.OK);
+        return new ResponseEntity<>("Subject was deleted", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<SubjectResponseDTO> updateSubject(@Exists(entity = Subject.class , message = "subject not found.") @PathVariable("id") Long id, @Valid @RequestBody SubjectUpdateDTO SubjectupdateDTO) {
 
-        SubjectResponseDTO updatedSubject = subjectService.update(id, updateSubjectDTO);
+        SubjectResponseDTO updatedSubject = subjectService.update(id, SubjectupdateDTO);
         return new ResponseEntity<>(updatedSubject, HttpStatus.OK);
     }
 

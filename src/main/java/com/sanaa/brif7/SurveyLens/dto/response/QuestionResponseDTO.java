@@ -5,7 +5,13 @@ import com.sanaa.brif7.SurveyLens.dto.embbedable.SubjectEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.entity.enums.QuestionType;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuestionResponseDTO {
     private Long id;
 
@@ -18,4 +24,5 @@ public class QuestionResponseDTO {
     private SubjectEmbeddebleDTO subject;
 
     private List<AnswerEmbeddebleDTO> answers;
+ 
 }

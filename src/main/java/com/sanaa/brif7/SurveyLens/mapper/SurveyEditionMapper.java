@@ -4,29 +4,25 @@ import com.sanaa.brif7.SurveyLens.dto.request.SurveyEditionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyEditionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SurveyEditionResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.SurveyEdition;
+import com.sanaa.brif7.SurveyLens.mapper.components.SurveyResolver;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+@Mapper(componentModel = "spring",uses = {SurveyResolver.class})
+public interface SurveyEditionMapper extends GenericMapper<SurveyEdition, SurveyEditionCreateDTO, SurveyEditionUpdateDTO, SurveyEditionResponseDTO> {
 
-@Mapper(componentModel = "spring", uses = {AnswerEmbeddebleMapper.class, SurveyEditionEmbeddebleMapper.class})
-public interface SurveyEditionMapper {
-
-    SurveyEditionMapper INSTANCE = Mappers.getMapper(SurveyEditionMapper.class);
-
-
-    @Mapping(target = "id", ignore = true)
+    @Override
     @Mapping(target = "survey.id", source = "surveyId")
     SurveyEdition toEntity(SurveyEditionCreateDTO dto);
 
-
+    @Override
     @Mapping(target = "survey.id", source = "surveyId")
-    void updateEntityFromDto(SurveyEditionUpdateDTO dto, @MappingTarget SurveyEdition entity);
+    void updateEntityFromDTO(SurveyEditionUpdateDTO dto, @MappingTarget SurveyEdition entity);
 
-    @Mapping(target = "surveyEditions", source = "surveyEditions")
-    SurveyEditionResponseDTO toResponseDto(SurveyEdition surveyEdition);
-
-    List<SurveyEditionResponseDTO> toResponseDtos(List<SurveyEdition> surveyEditions);
+    @Override
+    @Mapping(target = "survey", source = "survey")
+    SurveyEditionResponseDTO toDTO(SurveyEdition surveyEdition);
 }
+
+

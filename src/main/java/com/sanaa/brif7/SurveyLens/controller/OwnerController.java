@@ -2,10 +2,14 @@ package com.sanaa.brif7.SurveyLens.controller;
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerCreateDTO;
+import com.sanaa.brif7.SurveyLens.dto.request.OwnerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Owner;
 import com.sanaa.brif7.SurveyLens.service.implementations.OwnerService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,25 +35,29 @@ public class OwnerController {
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity <OwnerResponseDTO> getAllOwnersPaginated(
+    public ResponseEntity<Page<OwnerResponseDTO>> getAllOwnersPaginated(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
-        OwnerResponseDTO  owners = ownerService.findAll(page, size);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<OwnerResponseDTO> owners = ownerService.findAll(pageable);
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOwner(@Exists(entity = Owner.class , message = "owner not found.") @PathVariable("id") Long id) {
         ownerService.deleteById(id);
-        return new ResponseEntity<>("Owner est supprimé avec succès", HttpStatus.OK);
+        return new ResponseEntity<>("Owner is deleted", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OwnerResponseDTO> updateOwner(@Exists(entity = Owner.class , message = "owner not found") @PathVariable("id") Long id, @Valid @RequestBody UpdateOwnerDTO updateOwnerDTO) {
-
+    public ResponseEntity<OwnerResponseDTO> updateOwner(
+            @Exists(entity = Owner.class, message = "Owner not found") @PathVariable("id") Long id,
+            @Valid @RequestBody OwnerUpdateDTO updateOwnerDTO
+    ) {
         OwnerResponseDTO updatedOwner = ownerService.update(id, updateOwnerDTO);
         return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
     }
+
 
 
 }

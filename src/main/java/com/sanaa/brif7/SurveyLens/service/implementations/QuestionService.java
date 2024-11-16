@@ -9,32 +9,32 @@ import com.sanaa.brif7.SurveyLens.mapper.QuestionMapper;
 import com.sanaa.brif7.SurveyLens.repository.QuestionRepository;
 import com.sanaa.brif7.SurveyLens.repository.SubjectRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.QuestionServiceI;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionService extends GenericService<Question, QuestionCreateDTO, QuestionUpdateDTO, QuestionResponseDTO> implements QuestionServiceI {
 
-    @Autowired
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
+    private final SubjectRepository subjectRepository;
+    private final QuestionMapper questionMapper;
 
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private QuestionMapper questionMapper;
-
-    public QuestionService(QuestionRepository questionRepository, QuestionMapper questionMapper) {
+    public QuestionService(QuestionRepository questionRepository, SubjectRepository subjectRepository, QuestionMapper questionMapper) {
         super(questionRepository, questionMapper);
+        this.questionRepository = questionRepository;
+        this.subjectRepository = subjectRepository;
+        this.questionMapper = questionMapper;
     }
+
     @Override
     public QuestionResponseDTO create(QuestionCreateDTO createQuestionDTO) {
         Long subjectId = createQuestionDTO.getSubjectId();
         Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new IllegalArgumentException("subject not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Subject not found."));
 
         if (subject.getSubSubjects() != null && !subject.getSubSubjects().isEmpty()) {
-            throw new IllegalStateException("can't add question.");
+            throw new IllegalStateException("Can't add question to a subject with sub-subjects.");
         }
 
         Question question = questionMapper.toEntity(createQuestionDTO);
@@ -47,20 +47,22 @@ public class QuestionService extends GenericService<Question, QuestionCreateDTO,
     @Override
     public QuestionResponseDTO update(Long id, QuestionUpdateDTO updateQuestionDTO) {
         Question existingQuestion = questionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("La question avec cet ID n'existe pas."));
+                .orElseThrow(() -> new IllegalArgumentException("Question not found."));
 
         Subject subject = existingQuestion.getSubject();
-
         if (subject.getSubSubjects() != null && !subject.getSubSubjects().isEmpty()) {
-            throw new IllegalStateException("Impossible de mettre à jour une question dans un subject qui possède des sous-sujets.");
+            throw new IllegalStateException("Cannot update question under a subject with sub-subjects.");
         }
 
-        existingQuestion = questionMapper.updateEntityFromDTO(updateQuestionDTO, existingQuestion);
-
+        questionMapper.updateEntityFromDTO(updateQuestionDTO, existingQuestion);
         Question updatedQuestion = questionRepository.save(existingQuestion);
 
         return questionMapper.toDTO(updatedQuestion);
     }
 
-
+    @Override
+    public Page<QuestionResponseDTO> findAll(Pageable pageable) {
+        Page<Question> questions = questionRepository.findAll(pageable);
+        return questions.map(questionMapper::toDTO);
+    }
 }

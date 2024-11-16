@@ -4,19 +4,23 @@ import com.sanaa.brif7.SurveyLens.dto.request.AnswerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.AnswerResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Answer;
+import com.sanaa.brif7.SurveyLens.mapper.components.QuestionResolver;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
-public interface AnswerMapper {
+@Mapper(componentModel = "spring",uses = {QuestionResolver.class})
+public interface AnswerMapper extends GenericMapper<Answer, AnswerCreateDTO, AnswerUpdateDTO, AnswerResponseDTO> {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "selectionCount", constant = "0")
-    Answer toEntity(AnswerCreateDTO dto);
+    @Override
+    @Mapping(target = "question", source = "questionId")
+    Answer toEntity(AnswerCreateDTO answerCreateDTO);
 
-    @Mapping(target = "id", ignore = true)
-    void updateEntityFromDto(AnswerUpdateDTO dto, @MappingTarget Answer answer);
+    @Override
+    @Mapping(target = "question", source = "questionId")
+    void updateEntityFromDTO(AnswerUpdateDTO answerCreateDTO, @MappingTarget Answer answer);
 
-    AnswerResponseDTO toResponseDto(Answer answer);
+    @Override
+    @Mapping(target = "question", source = "question")
+    AnswerResponseDTO toDTO(Answer answer);
 }

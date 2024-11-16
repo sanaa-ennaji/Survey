@@ -26,4 +26,5 @@ public class Owner {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Survey> surveys ;
+
 }
