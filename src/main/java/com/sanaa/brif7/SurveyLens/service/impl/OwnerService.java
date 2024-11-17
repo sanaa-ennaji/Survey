@@ -1,4 +1,4 @@
-package com.sanaa.brif7.SurveyLens.service.implementations;
+package com.sanaa.brif7.SurveyLens.service.impl;
 
 import com.sanaa.brif7.SurveyLens.Exeptions.EntityNotFoundException;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerCreateDTO;
@@ -20,7 +20,6 @@ public class OwnerService extends GenericService<Owner, OwnerCreateDTO, OwnerUpd
         super(ownerRepository, ownerMapper);
         this.ownerMapper = ownerMapper;
     }
-
 
     @Override
     public Page<OwnerResponseDTO> findAll(Pageable pageable) {

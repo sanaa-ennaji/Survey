@@ -6,10 +6,9 @@ import com.sanaa.brif7.SurveyLens.dto.request.SurveyCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SurveyResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Survey;
-import com.sanaa.brif7.SurveyLens.service.implementations.SurveyService;
+import com.sanaa.brif7.SurveyLens.service.impl.SurveyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Validated
 @RestController
@@ -35,7 +32,7 @@ public class SurveyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SurveyResponseDTO> getSurveyById(@Exists(entity = Survey.class , message = "Cet survey n'existe pas.")  @PathVariable("id") Long id) {
+    public ResponseEntity<SurveyResponseDTO> getSurveyById(@Exists(entity = Survey.class , message = "survey not found.")  @PathVariable("id") Long id) {
         SurveyResponseDTO survey = surveyService.findById(id);
         return new ResponseEntity<>(survey, HttpStatus.OK);
     }

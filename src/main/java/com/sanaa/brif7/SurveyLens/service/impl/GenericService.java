@@ -1,6 +1,5 @@
-package com.sanaa.brif7.SurveyLens.service.implementations;
+package com.sanaa.brif7.SurveyLens.service.impl;
 
-import com.sanaa.brif7.SurveyLens.entity.Owner;
 import com.sanaa.brif7.SurveyLens.mapper.GenericMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

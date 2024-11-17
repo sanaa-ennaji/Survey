@@ -6,7 +6,7 @@ import com.sanaa.brif7.SurveyLens.dto.request.SurveyEditionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyEditionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SurveyEditionResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.SurveyEdition;
-import com.sanaa.brif7.SurveyLens.service.implementations.SurveyEditionService;
+import com.sanaa.brif7.SurveyLens.service.impl.SurveyEditionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

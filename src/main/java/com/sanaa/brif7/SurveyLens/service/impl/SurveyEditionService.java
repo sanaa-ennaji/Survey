@@ -1,4 +1,4 @@
-package com.sanaa.brif7.SurveyLens.service.implementations;
+package com.sanaa.brif7.SurveyLens.service.impl;
 
 import com.sanaa.brif7.SurveyLens.Exeptions.EntityNotFoundException;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyEditionCreateDTO;

@@ -1,4 +1,4 @@
-package com.sanaa.brif7.SurveyLens.service.implementations;
+package com.sanaa.brif7.SurveyLens.service.impl;
 
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyUpdateDTO;

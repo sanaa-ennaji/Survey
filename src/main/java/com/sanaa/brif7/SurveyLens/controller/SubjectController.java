@@ -6,21 +6,20 @@ import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
-import com.sanaa.brif7.SurveyLens.service.implementations.SubjectService;
+import com.sanaa.brif7.SurveyLens.service.impl.SubjectService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/subject")
 public class SubjectController {
-    @Autowired
+
     private SubjectService subjectService;
 
     @PostMapping

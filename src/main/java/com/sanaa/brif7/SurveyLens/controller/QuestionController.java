@@ -5,7 +5,7 @@ import com.sanaa.brif7.SurveyLens.dto.request.QuestionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.QuestionResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Question;
-import com.sanaa.brif7.SurveyLens.service.implementations.QuestionService;
+import com.sanaa.brif7.SurveyLens.service.impl.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
