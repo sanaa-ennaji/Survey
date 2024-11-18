@@ -6,10 +6,7 @@ import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
 
 import java.util.List;
 
-public interface OwnerServiceI {
-    OwnerResponseDTO create(OwnerCreateDTO createDTO);
-    OwnerResponseDTO findById(Long id);
-    List<OwnerResponseDTO> findAll();
-    void deleteById(Long id);
-    OwnerResponseDTO update(Long id, OwnerUpdateDTO updateDTO);
+public interface OwnerServiceI extends IGenericService<OwnerCreateDTO, OwnerUpdateDTO, OwnerResponseDTO>{
+
+
 }

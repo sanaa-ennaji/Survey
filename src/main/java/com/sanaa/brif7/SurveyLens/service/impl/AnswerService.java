@@ -11,23 +11,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AnswerService extends GenericService<Answer, AnswerCreateDTO, AnswerUpdateDTO, AnswerResponseDTO>
         implements AnswerServiceI {
 
-    private final AnswerMapper answerMapper;
 
     public AnswerService(AnswerRepository answerRepository, AnswerMapper answerMapper) {
         super(answerRepository, answerMapper);
-        this.answerMapper = answerMapper;
+
     }
 
-    @Override
-    public Page<AnswerResponseDTO> findAll(Pageable pageable) {
-        Page<Answer> answers = repository.findAll(pageable);
-        return answers.map(answerMapper::toDTO);
-    }
 }
 
 

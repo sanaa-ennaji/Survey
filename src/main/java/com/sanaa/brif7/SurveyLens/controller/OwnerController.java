@@ -7,6 +7,7 @@ import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Owner;
 import com.sanaa.brif7.SurveyLens.service.impl.OwnerService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/owner")
 public class OwnerController {
 

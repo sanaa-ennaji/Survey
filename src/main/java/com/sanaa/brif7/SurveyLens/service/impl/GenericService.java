@@ -1,7 +1,9 @@
 package com.sanaa.brif7.SurveyLens.service.impl;
 
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.mapper.GenericMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.IGenericService;
@@ -32,10 +34,25 @@ public abstract class GenericService<Entity, CreateDTO, UpdateDTO, ResponseDTO> 
     }
 
     @Override
-    public List<ResponseDTO> findAll() {
-        List<Entity> entities = repository.findAll();
-        return entities.stream().map(mapper::toDTO).toList();
+    public PaginationDTO<ResponseDTO> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Entity> pagedResult = repository.findAll(pageable);
+
+        List<ResponseDTO> content = pagedResult.getContent()
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+
+        return new PaginationDTO<>(
+                content,
+                pagedResult.getNumber(),
+                pagedResult.getSize(),
+                pagedResult.getTotalElements(),
+                pagedResult.getTotalPages(),
+                pagedResult.isLast()
+        );
     }
+
 
     @Override
     public void deleteById(Long id) {
@@ -49,6 +66,5 @@ public abstract class GenericService<Entity, CreateDTO, UpdateDTO, ResponseDTO> 
         return mapper.toDTO(repository.save(entity));
     }
 
-    public abstract Page<ResponseDTO> findAll(Pageable pageable);
 
 }
