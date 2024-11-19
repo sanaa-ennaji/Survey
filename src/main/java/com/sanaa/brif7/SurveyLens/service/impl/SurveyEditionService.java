@@ -24,11 +24,7 @@ public class SurveyEditionService extends GenericService<SurveyEdition, SurveyEd
         this.surveyEditionMapper = surveyEditionMapper;
     }
 
-    @Override
-    public Page<SurveyEditionResponseDTO> findAll(Pageable pageable) {
-        Page<SurveyEdition> surveyEditions = surveyEditionRepository.findAll(pageable);
-        return surveyEditions.map(surveyEditionMapper::toDTO);
-    }
+
 
     public SurveyEditionResponseDTO update(Long id, SurveyEditionUpdateDTO updateDTO) {
         SurveyEdition surveyEdition = surveyEditionRepository.findById(id)

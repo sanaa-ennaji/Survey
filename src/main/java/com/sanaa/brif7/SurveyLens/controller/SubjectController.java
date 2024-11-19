@@ -2,6 +2,7 @@ package com.sanaa.brif7.SurveyLens.controller;
 
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/subject")
 public class SubjectController {
 
-    private SubjectService subjectService;
+    private  final SubjectService subjectService;
 
     @PostMapping
     public ResponseEntity<SubjectResponseDTO> createSubject(@Valid @RequestBody SubjectCreateDTO createSubjectDTO) {
@@ -34,11 +35,10 @@ public class SubjectController {
         return new ResponseEntity<>(subject, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<SubjectResponseDTO> getAllSubjectsPaginated(
+    public ResponseEntity<PaginationDTO<SubjectResponseDTO>> getAllSubjectsPaginated(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        SubjectResponseDTO subjects = (SubjectResponseDTO) subjectService.findAll();
+            @RequestParam(defaultValue = "3") int size) {
+        PaginationDTO<SubjectResponseDTO> subjects = subjectService.findAll(page, size);
         return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
 

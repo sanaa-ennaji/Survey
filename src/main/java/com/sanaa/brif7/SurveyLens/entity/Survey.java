@@ -21,7 +21,7 @@ public class Survey {
     private Long id;
 
     @NotBlank
-    @Unique(entity = Survey.class, field = "title")
+//    @Unique(entity = Survey.class, field = "title")
     private String title;
 
     @NotBlank

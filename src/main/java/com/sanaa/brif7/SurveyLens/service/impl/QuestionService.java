@@ -60,9 +60,5 @@ public class QuestionService extends GenericService<Question, QuestionCreateDTO,
         return questionMapper.toDTO(updatedQuestion);
     }
 
-    @Override
-    public Page<QuestionResponseDTO> findAll(Pageable pageable) {
-        Page<Question> questions = questionRepository.findAll(pageable);
-        return questions.map(questionMapper::toDTO);
-    }
+
 }

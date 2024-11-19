@@ -6,6 +6,7 @@ import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.mapper.SubjectMapper;
 import com.sanaa.brif7.SurveyLens.repository.SubjectRepository;
+import com.sanaa.brif7.SurveyLens.repository.SurveyEditionRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.SubjectServiceI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,16 +17,15 @@ public class SubjectService extends GenericService<Subject, SubjectCreateDTO, Su
 
     private final SubjectRepository subjectRepository;
     private final SubjectMapper subjectMapper;
+    private final SurveyEditionRepository surveyEditionRepository;
 
-    public SubjectService(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
+    public SubjectService(SubjectRepository subjectRepository,
+                          SubjectMapper subjectMapper,
+                          SurveyEditionRepository surveyEditionRepository) {
         super(subjectRepository, subjectMapper);
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
-    }
-
-    @Override
-    public Page<SubjectResponseDTO> findAll(Pageable pageable) {
-        Page<Subject> subjects = subjectRepository.findAll(pageable);
-        return subjects.map(subjectMapper::toDTO);
+        this.surveyEditionRepository = surveyEditionRepository;
     }
 }
+

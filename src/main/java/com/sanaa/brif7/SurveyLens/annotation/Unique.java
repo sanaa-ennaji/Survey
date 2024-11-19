@@ -11,10 +11,11 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Unique {
-    String message() default "value must be unique.";
+    String message() default "Value must be unique.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
     Class<?> entity();
     String field();
 }
+

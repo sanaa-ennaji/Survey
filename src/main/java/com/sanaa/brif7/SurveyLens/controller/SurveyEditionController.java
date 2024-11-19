@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/surveyEdition")
 public class SurveyEditionController {
 
-    private SurveyEditionService surveyEditionService;
+    private  final SurveyEditionService surveyEditionService;
 
     @PostMapping
     public ResponseEntity<SurveyEditionResponseDTO> createSurveyEdition(@Valid @RequestBody SurveyEditionCreateDTO createSurveyEditionDTO) {
@@ -37,22 +37,13 @@ public class SurveyEditionController {
         SurveyEditionResponseDTO surveyEdition = surveyEditionService.findById(id);
         return new ResponseEntity<>(surveyEdition, HttpStatus.OK);
     }
+
     @GetMapping
-    public ResponseEntity<PaginationDTO<SurveyEditionResponseDTO>> getAllSurveyEditionsPaginated(
+    public ResponseEntity<PaginationDTO<SurveyEditionResponseDTO>> getAllSurveyEditionPaginated(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<SurveyEditionResponseDTO> surveyEditions = surveyEditionService.findAll(pageable);
-        PaginationDTO<SurveyEditionResponseDTO> paginationDTO = new PaginationDTO<>(
-                surveyEditions.getContent(),
-                surveyEditions.getPageable().getPageNumber(),
-                surveyEditions.getPageable().getPageSize(),
-                surveyEditions.getTotalElements(),
-                surveyEditions.getTotalPages(),
-                surveyEditions.isLast()
-        );
-        return new ResponseEntity<>(paginationDTO, HttpStatus.OK);
+            @RequestParam(defaultValue = "3") int size) {
+        PaginationDTO<SurveyEditionResponseDTO> surveyEditions = surveyEditionService.findAll(page, size);
+        return new ResponseEntity<>(surveyEditions, HttpStatus.OK);
     }
 
 

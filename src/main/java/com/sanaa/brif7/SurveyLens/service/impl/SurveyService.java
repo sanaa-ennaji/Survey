@@ -23,9 +23,5 @@ public class SurveyService extends GenericService<Survey, SurveyCreateDTO, Surve
         this.surveyMapper = surveyMapper;
     }
 
-    @Override
-    public Page<SurveyResponseDTO> findAll(Pageable pageable) {
-        Page<Survey> surveys = surveyRepository.findAll(pageable);
-        return surveys.map(surveyMapper::toDTO);
-    }
+
 }

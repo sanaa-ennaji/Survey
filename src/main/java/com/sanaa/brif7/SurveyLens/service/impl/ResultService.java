@@ -16,7 +16,6 @@ import java.util.Map;
 @Service
 public class ResultService implements ResultServiceI {
 
-    @Autowired
     private SurveyRepository surveyRepository;
 
     @Override

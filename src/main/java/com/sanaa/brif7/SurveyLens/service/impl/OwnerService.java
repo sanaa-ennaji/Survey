@@ -13,11 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OwnerService extends GenericService<Owner, OwnerCreateDTO, OwnerUpdateDTO, OwnerResponseDTO> implements OwnerServiceI {
 
-
-        public OwnerService(OwnerRepository ownerRepository, OwnerMapper ownerMapper) {
-            super(ownerRepository, ownerMapper);
-        }
-
-
-
+    public OwnerService(OwnerRepository ownerRepository, OwnerMapper ownerMapper) {
+        super(ownerRepository, ownerMapper);
+    }
 }
+

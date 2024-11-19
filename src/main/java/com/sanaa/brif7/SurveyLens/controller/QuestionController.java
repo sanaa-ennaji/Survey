@@ -1,6 +1,7 @@
 package com.sanaa.brif7.SurveyLens.controller;
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.QuestionResponseDTO;
@@ -39,13 +40,13 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<QuestionResponseDTO>> getAllQuestionsPaginated(
+    public ResponseEntity<PaginationDTO<QuestionResponseDTO>> getAllQuestionsPaginated(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page <QuestionResponseDTO> questions = questionService.findAll(pageable);
-        return  new ResponseEntity<>(questions, HttpStatus.OK);
+        PaginationDTO<QuestionResponseDTO> questions = questionService.findAll(page, size);
+        return new ResponseEntity<>(questions, HttpStatus.OK);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestion(

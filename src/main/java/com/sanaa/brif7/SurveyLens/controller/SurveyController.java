@@ -4,6 +4,7 @@ import com.sanaa.brif7.SurveyLens.annotation.Exists;
 import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SurveyUpdateDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SurveyResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Survey;
 import com.sanaa.brif7.SurveyLens.service.impl.SurveyService;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/survey")
 public class SurveyController {
 
-    private SurveyService surveyService;
+    private  final SurveyService surveyService;
 
     @PostMapping
     public ResponseEntity<SurveyResponseDTO> createSurvey(@Valid @RequestBody SurveyCreateDTO createSurveyDTO) {
@@ -37,21 +38,11 @@ public class SurveyController {
         return new ResponseEntity<>(survey, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<PaginationDTO<SurveyResponseDTO>> getAllSurveysPaginated(
+    public ResponseEntity<PaginationDTO<SurveyResponseDTO>> getAlSurveysPaginated(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<SurveyResponseDTO> surveys = surveyService.findAll(pageable);
-        PaginationDTO<SurveyResponseDTO> paginationDTO = new PaginationDTO<>(
-                surveys.getContent(),
-                surveys.getPageable().getPageNumber(),
-                surveys.getPageable().getPageSize(),
-                surveys.getTotalElements(),
-                surveys.getTotalPages(),
-                surveys.isLast()
-        );
-        return new ResponseEntity<>(paginationDTO, HttpStatus.OK);
+            @RequestParam(defaultValue = "3") int size) {
+        PaginationDTO<SurveyResponseDTO> surveys = surveyService.findAll(page, size);
+        return new ResponseEntity<>(surveys, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

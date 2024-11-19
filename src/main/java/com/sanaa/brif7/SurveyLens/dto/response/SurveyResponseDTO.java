@@ -1,5 +1,6 @@
 package com.sanaa.brif7.SurveyLens.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sanaa.brif7.SurveyLens.dto.embbedable.OwnerEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.dto.embbedable.SurveyEditionEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.entity.Survey;
@@ -14,14 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 public class SurveyResponseDTO {
     private Long id;
-
     private String title;
-
     private String description;
-
     private OwnerEmbeddebleDTO owner;
-
-    private List<SurveyEditionEmbeddebleDTO> surveyEditions ;
+    private List<SurveyEditionEmbeddebleDTO> surveyEditions;
+    @JsonIgnore
     private Survey survey;
 
 }

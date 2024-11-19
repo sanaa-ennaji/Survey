@@ -1,6 +1,7 @@
 package com.sanaa.brif7.SurveyLens.controller;
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.AnswerResponseDTO;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/answer")
 public class AnswerController {
 
-    private AnswerService answerService;
+    private  final AnswerService answerService;
 
     @PostMapping
     public ResponseEntity<AnswerResponseDTO> createAnswer(@Valid @RequestBody AnswerCreateDTO createAnswerDTO) {
@@ -37,14 +38,13 @@ public class AnswerController {
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
     @GetMapping
-    public  ResponseEntity<Page<AnswerResponseDTO>> getAllAnswersPaginated(
+    public ResponseEntity<PaginationDTO<AnswerResponseDTO>> getAllAnswersPaginated(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page< AnswerResponseDTO>  answers = answerService.findAll(pageable);
+            @RequestParam(defaultValue = "3") int size) {
+        PaginationDTO<AnswerResponseDTO> answers = answerService.findAll(page, size);
         return new ResponseEntity<>(answers, HttpStatus.OK);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAnswer(@Exists(entity = Answer.class , message = "answer not found.") @PathVariable("id") Long id) {

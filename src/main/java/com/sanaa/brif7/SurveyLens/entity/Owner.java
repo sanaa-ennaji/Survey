@@ -21,7 +21,7 @@ public class Owner {
     private Long id;
 
     @NotBlank
-    @Unique(entity = Owner.class, field = "name")
+//    @Unique(entity = Owner.class, field = "name")
     private String name;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
