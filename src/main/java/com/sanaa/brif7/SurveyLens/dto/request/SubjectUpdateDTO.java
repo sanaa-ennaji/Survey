@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class SubjectUpdateDTO {
     private String title;
 
-    @Exists(entity = Subject.class, message = "Cet subject n'existe pas.")
+    @Exists(entity = Subject.class, message = "subject not found.")
     private Long parentSubjectId;
 
-    @Exists(entity = SurveyEdition.class, message = "Cet surveyEdition n'existe pas.")
+    @Exists(entity = SurveyEdition.class, message = "surveyEdition not found.")
     private Long surveyEditionId;
 }

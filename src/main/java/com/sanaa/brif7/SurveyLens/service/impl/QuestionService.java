@@ -51,7 +51,7 @@ public class QuestionService extends GenericService<Question, QuestionCreateDTO,
 
         Subject subject = existingQuestion.getSubject();
         if (subject.getSubSubjects() != null && !subject.getSubSubjects().isEmpty()) {
-            throw new IllegalStateException("Cannot update question under a subject with sub-subjects.");
+            throw new IllegalStateException("Cannot update question under a subject without sub-subjects.");
         }
 
         questionMapper.updateEntityFromDTO(updateQuestionDTO, existingQuestion);

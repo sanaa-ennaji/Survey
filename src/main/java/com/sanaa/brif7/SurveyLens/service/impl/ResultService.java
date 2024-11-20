@@ -36,7 +36,7 @@ public class ResultService implements ResultServiceI {
             }
         }
 
-        surveyResult.setSubjects(subjects); // Should work now
+        surveyResult.setSubjects(subjects);
         return surveyResult;
     }
 

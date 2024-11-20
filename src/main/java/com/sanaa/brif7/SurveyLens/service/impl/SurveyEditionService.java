@@ -18,16 +18,15 @@ public class SurveyEditionService extends GenericService<SurveyEdition, SurveyEd
     private final SurveyEditionRepository surveyEditionRepository;
     private final SurveyEditionMapper surveyEditionMapper;
 
-    public SurveyEditionService(SurveyEditionRepository surveyEditionRepository, SurveyEditionMapper surveyEditionMapper) {
+    public SurveyEditionService(SurveyEditionRepository surveyEditionRepository,
+                                SurveyEditionMapper surveyEditionMapper) {
         super(surveyEditionRepository, surveyEditionMapper);
         this.surveyEditionRepository = surveyEditionRepository;
         this.surveyEditionMapper = surveyEditionMapper;
     }
 
-
-
     public SurveyEditionResponseDTO update(Long id, SurveyEditionUpdateDTO updateDTO) {
-        SurveyEdition surveyEdition = surveyEditionRepository.findById(id)
+       SurveyEdition surveyEdition = surveyEditionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("SurveyEdition not found"));
 
         surveyEditionMapper.updateEntityFromDTO(updateDTO, surveyEdition);
@@ -35,4 +34,49 @@ public class SurveyEditionService extends GenericService<SurveyEdition, SurveyEd
         return surveyEditionMapper.toDTO(updatedSurveyEdition);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@Service
+//public class SurveyEditionService extends GenericService<SurveyEdition, SurveyEditionCreateDTO, SurveyEditionUpdateDTO, SurveyEditionResponseDTO> implements SurveyEditionServiceI {
+//
+//    private final SurveyEditionRepository surveyEditionRepository;
+//    private final SurveyEditionMapper surveyEditionMapper;
+//
+//    public SurveyEditionService(SurveyEditionRepository surveyEditionRepository, SurveyEditionMapper surveyEditionMapper) {
+//        super(surveyEditionRepository, surveyEditionMapper);
+//        this.surveyEditionRepository = surveyEditionRepository;
+//        this.surveyEditionMapper = surveyEditionMapper;
+//    }
+//
+//
+//
+//    public SurveyEditionResponseDTO update(Long id, SurveyEditionUpdateDTO updateDTO) {
+//        SurveyEdition surveyEdition = surveyEditionRepository.findById(id)
+//                .orElseThrow(() -> new EntityNotFoundException("SurveyEdition not found"));
+//
+//        surveyEditionMapper.updateEntityFromDTO(updateDTO, surveyEdition);
+//        SurveyEdition updatedSurveyEdition = surveyEditionRepository.save(surveyEdition);
+//        return surveyEditionMapper.toDTO(updatedSurveyEdition);
+//    }
+//}
 

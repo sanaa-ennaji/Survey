@@ -22,6 +22,6 @@ public class QuestionCreateDTO {
     private QuestionType questionType;
 
     @NotNull
-    @Exists(entity = Subject.class, message = "subject not found")
+    @Exists(entity = Subject.class, message = "not found")
     private Long subjectId;
 }
