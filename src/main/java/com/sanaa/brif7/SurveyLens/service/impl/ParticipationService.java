@@ -35,7 +35,7 @@ public class ParticipationService implements ParticipationServiceI {
                 throw new IllegalArgumentException("La question " + responseDTO.getQuestionId() + " dosnot belong to the survey  " + surveyId);
             }
 
-            if (question.getQuestionType() == QuestionType.Single_CHOICE) {
+            if (question.getQuestionType() == QuestionType.SINGLE_CHOICE) {
                 if (responseDTO.getSingleAnswerId() == null || responseDTO.getMultipleAnswers() != null) {
                     throw new IllegalArgumentException("one response needed for  = " + question.getId());
                 }

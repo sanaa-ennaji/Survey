@@ -1,32 +1,29 @@
 package com.sanaa.brif7.SurveyLens.mapper;
 
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
-import com.sanaa.brif7.SurveyLens.dto.request.SubjectUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
-import com.sanaa.brif7.SurveyLens.mapper.components.SubjectResolver;
-import com.sanaa.brif7.SurveyLens.mapper.components.SurveyEditionResolver;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring",uses = {SurveyEditionResolver.class , SubjectResolver.class})
-public interface SubjectMapper extends GenericMapper<Subject, SubjectCreateDTO, SubjectUpdateDTO, SubjectResponseDTO> {
+import java.util.List;
 
-    @Override
-    @Mapping(target = "surveyEdition", source = "surveyEditionId")
+@Mapper(componentModel = "spring", uses = SubjectMapperHelper.class)
+public interface SubjectMapper {
+
+    @Mapping(source = "parentSubject.id", target = "parentSubjectId")
+    SubjectResponseDTO toResponseDTO(Subject entity);
+
     @Mapping(target = "parentSubject", source = "parentSubjectId")
-    Subject toEntity(SubjectCreateDTO subjectCreateDTO);
+    Subject toEntity(SubjectCreateDTO requestDTO);
 
-    @Override
-    @Mapping(target = "surveyEdition", source = "surveyEditionId")
-    @Mapping(target = "parentSubject", source = "parentSubjectId")
-    void updateEntityFromDTO(SubjectUpdateDTO SubjectUpdateDTO, @MappingTarget Subject entity);
+    void updateEntityFromDTO(SubjectCreateDTO dto, @MappingTarget Subject subject);
 
-    @Override
-    @Mapping(target = "surveyEdition", source = "surveyEdition")
-    @Mapping(target = "parentSubject", source = "parentSubject")
-    SubjectResponseDTO toDTO(Subject subject);
+    List<SubjectResponseDTO> toResponseDTOList(List<Subject> entities);
+
+    List<Subject> toEntityList(List<SubjectCreateDTO> requestDTOs);
 }
 
 

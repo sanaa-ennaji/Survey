@@ -47,7 +47,6 @@ public class QuestionController {
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestion(
             @Exists(entity = Question.class, message = "question not found.")
@@ -64,4 +63,5 @@ public class QuestionController {
         QuestionResponseDTO updatedQuestion = questionService.update(id, updateQuestionDTO);
         return ResponseEntity.ok(updatedQuestion);
     }
+
 }

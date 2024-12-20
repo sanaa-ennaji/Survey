@@ -6,7 +6,6 @@ import com.sanaa.brif7.SurveyLens.dto.SurveyResultDTO;
 import com.sanaa.brif7.SurveyLens.entity.*;
 import com.sanaa.brif7.SurveyLens.repository.SurveyRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.ResultServiceI;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

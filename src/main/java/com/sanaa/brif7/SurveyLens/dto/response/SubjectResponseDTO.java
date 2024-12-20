@@ -14,15 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SubjectResponseDTO {
     private Long id;
-
     private String title;
-
-    private SubjectEmbeddebleDTO parentSubject;
-
-    private List<SubjectEmbeddebleDTO> subSubjects;
-
+    private long parentSubjectId;
     private SurveyEditionEmbeddebleDTO surveyEdition;
-
     private List<QuestionEmbeddebleDTO> questions;
 
 
