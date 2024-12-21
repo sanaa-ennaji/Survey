@@ -5,6 +5,7 @@ import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Owner;
 import com.sanaa.brif7.SurveyLens.service.impl.OwnerService;
 import jakarta.validation.Valid;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -35,18 +38,19 @@ public class OwnerController {
     }
 
     @GetMapping
-    public ResponseEntity<PaginationDTO<OwnerResponseDTO>> getAllOwnersPaginated(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
-        PaginationDTO<OwnerResponseDTO> owners = ownerService.findAll(page, size);
-        return new ResponseEntity<>(owners, HttpStatus.OK);
+    public ResponseEntity<List<OwnerResponseDTO>> getAllOwners(){
+        List<OwnerResponseDTO> owners = ownerService.findAll();
+        return ResponseEntity.ok(owners);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOwner(@Exists(entity = Owner.class , message = "owner not found.") @PathVariable("id") Long id) {
-        ownerService.deleteById(id);
+        ownerService.delete(id);
         return new ResponseEntity<>("Owner is deleted", HttpStatus.OK);
     }
+
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<OwnerResponseDTO> updateOwner(
