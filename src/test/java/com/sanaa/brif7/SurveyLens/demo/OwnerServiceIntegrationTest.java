@@ -1,13 +1,19 @@
 package com.sanaa.brif7.SurveyLens.demo;
 
+import com.sanaa.brif7.SurveyLens.dto.request.OwnerCreateDTO;
+import com.sanaa.brif7.SurveyLens.dto.request.OwnerUpdateDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
+import com.sanaa.brif7.SurveyLens.entity.Owner;
+import com.sanaa.brif7.SurveyLens.mapper.OwnerMapper;
+import com.sanaa.brif7.SurveyLens.repository.OwnerRepository;
+import com.sanaa.brif7.SurveyLens.service.impl.OwnerService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
