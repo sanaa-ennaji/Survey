@@ -8,22 +8,19 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring", uses = SubjectMapperHelper.class)
 public interface SubjectMapper {
-
     @Mapping(source = "parentSubject.id", target = "parentSubjectId")
+    @Mapping(source = "subSubjects", target = "subSubjects")
+    @Mapping(source = "surveyEdition.id", target = "surveyEditionId")
+    @Mapping(source = "questions", target = "questions")
     SubjectResponseDTO toResponseDTO(Subject entity);
 
     @Mapping(target = "parentSubject", source = "parentSubjectId")
     Subject toEntity(SubjectCreateDTO requestDTO);
 
     void updateEntityFromDTO(SubjectCreateDTO dto, @MappingTarget Subject subject);
-
-    List<SubjectResponseDTO> toResponseDTOList(List<Subject> entities);
-
-    List<Subject> toEntityList(List<SubjectCreateDTO> requestDTOs);
 }
 
 

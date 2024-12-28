@@ -25,7 +25,7 @@ public class Subject {
     @ManyToOne
     private Subject parentSubject;
 
-    @OneToMany(mappedBy = "parentSubject", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parentSubject")
     private List<Subject> subSubjects;
 
     @ManyToOne

@@ -13,5 +13,6 @@ public interface SubjectServiceI {
     List<SubjectResponseDTO> findAll();
     Optional <SubjectResponseDTO> findById(Long id);
     SubjectResponseDTO update(Long id, SubjectCreateDTO subjectRequestDTO);
+    List<SubjectResponseDTO> getSubjectsBySurveyEditionId(Long surveyEditionId);
 
 }

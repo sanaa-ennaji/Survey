@@ -43,9 +43,15 @@ public class SubjectController {
         return ResponseEntity.ok(subjects);
     }
 
+    @GetMapping("/edition/{id}")
+    public ResponseEntity<List<SubjectResponseDTO>> getSubjectsByEditionId(@PathVariable Long id) {
+        List<SubjectResponseDTO> subjects = subjectService.getSubjectsBySurveyEditionId(id);
+        return ResponseEntity.ok(subjects);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSubject(@Exists(entity = Subject.class , message = "subject not found.") @PathVariable("id") Long id) {
-        subjectService.delete(id);
+        subjectService.delete(id) ;
         return new ResponseEntity<>("Subject was deleted", HttpStatus.OK);
     }
 

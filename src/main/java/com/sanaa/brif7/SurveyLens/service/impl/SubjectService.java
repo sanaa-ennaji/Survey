@@ -23,7 +23,13 @@ public class SubjectService implements SubjectServiceI {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
     }
-
+    @Override
+    public List<SubjectResponseDTO> getSubjectsBySurveyEditionId(Long surveyEditionId) {
+        List<Subject> subjects = subjectRepository.findBySurveyEditionId(surveyEditionId);
+        return subjects.stream()
+            .map(subjectMapper::toResponseDTO)
+            .collect(Collectors.toList());
+    }
     @Override
     public SubjectResponseDTO create(SubjectCreateDTO subjectRequestDTO) {
         Subject subject = subjectMapper.toEntity(subjectRequestDTO);

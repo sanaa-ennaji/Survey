@@ -16,8 +16,9 @@ public class SubjectResponseDTO {
     private Long id;
     private String title;
     private long parentSubjectId;
+    private List<SubjectEmbeddebleDTO> subSubjects;
     private SurveyEditionEmbeddebleDTO surveyEdition;
+    private Long surveyEditionId;
     private List<QuestionEmbeddebleDTO> questions;
-
 
 }

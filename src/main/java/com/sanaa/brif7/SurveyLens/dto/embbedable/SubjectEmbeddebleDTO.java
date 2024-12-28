@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SubjectEmbeddebleDTO {
     private Long id;
-
     private String title;
 }

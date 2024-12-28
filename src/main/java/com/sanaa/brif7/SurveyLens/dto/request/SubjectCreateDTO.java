@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubjectCreateDTO {
-    @NotBlank
+    @NotNull
     private String title;
     private Long parentSubjectId;
-    @NotNull
     @Exists(entity = SurveyEdition.class, message = "surveyEdition not found.")
     private Long surveyEditionId;
 
