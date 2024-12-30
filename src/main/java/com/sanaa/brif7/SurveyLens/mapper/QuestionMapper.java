@@ -5,7 +5,6 @@ import com.sanaa.brif7.SurveyLens.dto.request.QuestionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.QuestionResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Question;
 import com.sanaa.brif7.SurveyLens.mapper.components.SubjectResolver;
-import com.sanaa.brif7.SurveyLens.mapper.components.SurveyEditionResolver;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

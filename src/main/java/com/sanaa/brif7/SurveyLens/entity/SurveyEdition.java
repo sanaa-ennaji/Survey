@@ -38,4 +38,5 @@ public class SurveyEdition {
 
     @OneToMany(mappedBy = "surveyEdition", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Subject> subjects;
+
 }
