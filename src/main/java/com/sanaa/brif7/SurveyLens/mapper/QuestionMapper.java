@@ -9,20 +9,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring",uses = {SubjectResolver.class})
-public interface QuestionMapper extends GenericMapper<Question, QuestionCreateDTO, QuestionUpdateDTO, QuestionResponseDTO> {
 
-    @Override
-    @Mapping(target = "subject", source = "subjectId")
-    Question toEntity(QuestionCreateDTO questionCreateDTO);
+@Mapper(componentModel = "spring", uses = {AnswerMapper.class})
+public interface QuestionMapper {
 
-    @Override
-    @Mapping(target = "subject", source = "subjectId")
-    void updateEntityFromDTO(QuestionUpdateDTO questionUpdateDTO, @MappingTarget Question question);
 
-    @Override
-    @Mapping(target = "subject", source = "subject")
+    QuestionResponseDTO toResponseDTO(Question entity);
+    @Mapping(target =  "subject.id", source = "subjectId")
+    Question toEntity (QuestionCreateDTO requestDTO);
     QuestionResponseDTO toDTO(Question question);
+    void updateEntityFromRequest(QuestionUpdateDTO questionRequestDTO,@MappingTarget Question question);
 }
+
 
 

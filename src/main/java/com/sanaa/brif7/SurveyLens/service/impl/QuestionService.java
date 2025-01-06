@@ -1,5 +1,6 @@
 package com.sanaa.brif7.SurveyLens.service.impl;
 
+import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.QuestionResponseDTO;
@@ -7,58 +8,77 @@ import com.sanaa.brif7.SurveyLens.entity.Question;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.mapper.QuestionMapper;
 import com.sanaa.brif7.SurveyLens.repository.QuestionRepository;
-import com.sanaa.brif7.SurveyLens.repository.SubjectRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.QuestionServiceI;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class QuestionService extends GenericService<Question, QuestionCreateDTO, QuestionUpdateDTO, QuestionResponseDTO> implements QuestionServiceI {
-
-    private final QuestionRepository questionRepository;
-    private final SubjectRepository subjectRepository;
+public class QuestionService implements QuestionServiceI {
+    private final QuestionRepository questionRepository ;
     private final QuestionMapper questionMapper;
+    private final SubjectService subjectService;
 
-    public QuestionService(QuestionRepository questionRepository, SubjectRepository subjectRepository, QuestionMapper questionMapper) {
-        super(questionRepository, questionMapper);
+    public QuestionService(QuestionRepository questionRepository, QuestionMapper questionMapper, SubjectService subjectService) {
         this.questionRepository = questionRepository;
-        this.subjectRepository = subjectRepository;
         this.questionMapper = questionMapper;
+        this.subjectService = subjectService;
     }
 
+
     @Override
-    public QuestionResponseDTO create(QuestionCreateDTO createQuestionDTO) {
-        Long subjectId = createQuestionDTO.getSubjectId();
-        Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new IllegalArgumentException("Subject not found."));
-
-        if (subject.getSubSubjects() != null && !subject.getSubSubjects().isEmpty()) {
-            throw new IllegalStateException("Can't add question to a subject with sub-subjects.");
-        }
-
-        Question question = questionMapper.toEntity(createQuestionDTO);
+    public QuestionResponseDTO create(QuestionCreateDTO questionRequestDTO) {
+        Subject subject = subjectService.findEntityById(questionRequestDTO.getSubjectId());
+        Question question  = questionMapper.toEntity(questionRequestDTO);
         question.setSubject(subject);
-
         Question savedQuestion = questionRepository.save(question);
-        return questionMapper.toDTO(savedQuestion);
+        return  questionMapper.toResponseDTO(savedQuestion);
     }
 
     @Override
-    public QuestionResponseDTO update(Long id, QuestionUpdateDTO updateQuestionDTO) {
-        Question existingQuestion = questionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Question not found."));
-
-        Subject subject = existingQuestion.getSubject();
-        if (subject.getSubSubjects() != null && !subject.getSubSubjects().isEmpty()) {
-            throw new IllegalStateException("Cannot update question under a subject without sub-subjects.");
-        }
-
-        questionMapper.updateEntityFromDTO(updateQuestionDTO, existingQuestion);
-        Question updatedQuestion = questionRepository.save(existingQuestion);
-
-        return questionMapper.toDTO(updatedQuestion);
+    public QuestionResponseDTO update(Long id, QuestionUpdateDTO questionRequestDTO) {
+        Question  question = questionRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("question not found with ID: " + id));
+        questionMapper.updateEntityFromRequest(questionRequestDTO , question);
+        Question updatedQuestion = questionRepository.save(question);
+        return questionMapper.toResponseDTO(updatedQuestion);
     }
 
+    @Override
+    public QuestionResponseDTO findById(Long id) {
+        return questionRepository.findById(id)
+            .map(questionMapper::toDTO)
+            .orElseThrow(() -> new IllegalArgumentException("Question not found"));
+    }
+
+    @Override
+    public PaginationDTO<QuestionResponseDTO> findAll(int page, int size) {
+        return null;
+    }
+
+
+    @Override
+    public List<QuestionResponseDTO> findAll() {
+        return questionRepository.findAll()
+            .stream()
+            .map(questionMapper::toResponseDTO)
+            .toList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if(!questionRepository.existsById(id)){
+            throw new  EntityNotFoundException("Question not found with ID: " + id);
+        }
+        questionRepository.deleteById(id);
+
+    }
+    public Question findEntityById(Long id) {
+        return questionRepository.findById(id)
+            .orElseThrow(()-> new EntityNotFoundException("question not found with id "+ id));
+    }
 
 }
+

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface SubjectRepository  extends JpaRepository<Subject, Long> {
     List<Subject> findBySurveyEditionId(Long surveyEditionId);
 }

@@ -24,5 +24,6 @@ public class QuestionResponseDTO {
     private SubjectEmbeddebleDTO subject;
 
     private List<AnswerEmbeddebleDTO> answers;
- 
+
 }
+
