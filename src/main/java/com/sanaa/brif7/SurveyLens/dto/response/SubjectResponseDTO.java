@@ -19,6 +19,6 @@ public class SubjectResponseDTO {
     private List<SubjectEmbeddebleDTO> subSubjects;
     private SurveyEditionEmbeddebleDTO surveyEdition;
     private Long surveyEditionId;
-
+    private List<QuestionEmbeddebleDTO> questions;
 
 }
