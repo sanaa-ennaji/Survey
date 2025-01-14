@@ -9,18 +9,21 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring",uses = {QuestionResolver.class})
-public interface AnswerMapper extends GenericMapper<Answer, AnswerCreateDTO, AnswerUpdateDTO, AnswerResponseDTO> {
+import java.util.List;
 
-    @Override
+@Mapper(componentModel = "spring", uses = {QuestionResolver.class})
+public interface AnswerMapper {
+
+
     @Mapping(target = "question", source = "questionId")
     Answer toEntity(AnswerCreateDTO answerCreateDTO);
 
-    @Override
-    @Mapping(target = "question", source = "questionId")
-    void updateEntityFromDTO(AnswerUpdateDTO answerCreateDTO, @MappingTarget Answer answer);
-
-    @Override
     @Mapping(target = "question", source = "question")
     AnswerResponseDTO toDTO(Answer answer);
+
+    List<AnswerResponseDTO> toDTOs(List<Answer> answers);
+
+    @Mapping(target = "question", source = "questionId")
+    void updateEntityFromDTO(AnswerUpdateDTO answerUpdateDTO, @MappingTarget Answer answer);
 }
+

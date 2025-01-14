@@ -3,24 +3,31 @@ package com.sanaa.brif7.SurveyLens.service.impl;
 import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.QuestionUpdateDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.AnswerResponseDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.QuestionResponseDTO;
+import com.sanaa.brif7.SurveyLens.entity.Answer;
 import com.sanaa.brif7.SurveyLens.entity.Question;
 import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.mapper.QuestionMapper;
 import com.sanaa.brif7.SurveyLens.repository.QuestionRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.QuestionServiceI;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService implements QuestionServiceI {
-    private final QuestionRepository questionRepository ;
+    private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
     private final SubjectService subjectService;
 
+    @Autowired
     public QuestionService(QuestionRepository questionRepository, QuestionMapper questionMapper, SubjectService subjectService) {
         this.questionRepository = questionRepository;
         this.questionMapper = questionMapper;
@@ -55,7 +62,22 @@ public class QuestionService implements QuestionServiceI {
 
     @Override
     public PaginationDTO<QuestionResponseDTO> findAll(int page, int size) {
-        return null;
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Question> pagedResult = questionRepository.findAll(pageable);
+
+        List<QuestionResponseDTO> content = pagedResult.getContent()
+            .stream()
+            .map(questionMapper::toDTO)
+            .collect(Collectors.toList());
+
+        return new PaginationDTO<>(
+            content,
+            pagedResult.getNumber(),
+            pagedResult.getSize(),
+            pagedResult.getTotalElements(),
+            pagedResult.getTotalPages(),
+            pagedResult.isLast()
+        );
     }
 
 
@@ -79,6 +101,8 @@ public class QuestionService implements QuestionServiceI {
         return questionRepository.findById(id)
             .orElseThrow(()-> new EntityNotFoundException("question not found with id "+ id));
     }
+
+
 
 }
 
