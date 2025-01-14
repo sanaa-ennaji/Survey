@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnswerResponseDTO {
     private Long id;
-
     private String text;
-
     private Integer selectionCount;
-
-    private QuestionEmbeddebleDTO question;
+    private Long questionId;
 }

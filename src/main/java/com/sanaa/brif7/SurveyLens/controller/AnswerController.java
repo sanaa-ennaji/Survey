@@ -27,10 +27,11 @@ public class AnswerController {
     private  final AnswerService answerService;
 
     @PostMapping
-    public ResponseEntity<AnswerResponseDTO> createAnswer(@Valid @RequestBody AnswerCreateDTO createAnswerDTO) {
-        AnswerResponseDTO answer = answerService.create(createAnswerDTO);
-        return new ResponseEntity<>(answer, HttpStatus.OK);
+    public ResponseEntity<AnswerResponseDTO> createAnswer(@RequestBody @Valid AnswerCreateDTO createDTO) {
+        AnswerResponseDTO response = answerService.create(createDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<AnswerResponseDTO > getAnswerById(@Exists(entity = Answer.class , message = "answer not found.")  @PathVariable("id") Long id) {

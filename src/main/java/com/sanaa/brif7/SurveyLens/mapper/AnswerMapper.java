@@ -15,10 +15,10 @@ import java.util.List;
 public interface AnswerMapper {
 
 
-    @Mapping(target = "question", source = "questionId")
+    @Mapping(target = "question.id", source = "questionId")
     Answer toEntity(AnswerCreateDTO answerCreateDTO);
 
-    @Mapping(target = "question", source = "question")
+    @Mapping(source = "question.id", target = "questionId")
     AnswerResponseDTO toDTO(Answer answer);
 
     List<AnswerResponseDTO> toDTOs(List<Answer> answers);

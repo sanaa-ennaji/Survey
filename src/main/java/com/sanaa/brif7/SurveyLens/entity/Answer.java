@@ -23,8 +23,10 @@ public class Answer {
 
     private Integer selectionCount = 0;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
+
     public void SelectionCount() {
 
         this.selectionCount++;
