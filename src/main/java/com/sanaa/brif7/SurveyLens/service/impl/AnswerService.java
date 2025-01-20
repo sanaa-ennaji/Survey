@@ -51,6 +51,7 @@ public class AnswerService implements AnswerServiceI {
             .collect(Collectors.toList());
     }
 
+
     @Override
     public AnswerResponseDTO findById(Long id) {
         Answer entity = answerRepository.findById(id)
