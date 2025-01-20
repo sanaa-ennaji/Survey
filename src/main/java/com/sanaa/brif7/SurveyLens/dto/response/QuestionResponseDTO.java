@@ -21,9 +21,8 @@ public class QuestionResponseDTO {
 
     private QuestionType questionType;
 
-    private SubjectEmbeddebleDTO subject;
-
     private List<AnswerEmbeddebleDTO> answers;
+
 
 
 }

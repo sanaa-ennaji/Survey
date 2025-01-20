@@ -44,12 +44,12 @@ public class AnswerService implements AnswerServiceI {
         }
 
     @Override
-  public  List<AnswerResponseDTO> getAnswerByQuestionId(Long questionId){
+    public  List<AnswerResponseDTO> getAnswerByQuestionId(Long questionId){
         List<Answer> answers = answerRepository.findByQuestionId(questionId);
         return answers.stream()
             .map(answerMapper::toResponseDTO)
             .collect(Collectors.toList());
-    }
+        }
 
 
     @Override

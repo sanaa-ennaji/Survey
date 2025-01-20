@@ -23,12 +23,12 @@ public interface AnswerMapper {
     @Mapping(source = "question.id", target = "questionId")
     AnswerResponseDTO toDTO(Answer answer);
 
-    List<AnswerResponseDTO> toDTOs(List<Answer> answers);
+//    List<AnswerResponseDTO> toDTOs(List<Answer> answers);
 
     @Mapping(target = "question", source = "questionId")
     void updateEntityFromDTO(AnswerUpdateDTO answerUpdateDTO, @MappingTarget Answer answer);
 
-    @Mapping(source = "answer.id", target = "answerId")
+    @Mapping(source = "question.id", target = "questionId")
     AnswerResponseDTO toResponseDTO(Answer entity);
 }
 

@@ -38,6 +38,7 @@ public class AnswerController {
         AnswerResponseDTO  answer = answerService.findById(id);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
+
     @GetMapping
     public ResponseEntity<PaginationDTO<AnswerResponseDTO>> getAllAnswersPaginated(
             @RequestParam(defaultValue = "0") int page,
@@ -45,6 +46,7 @@ public class AnswerController {
         PaginationDTO<AnswerResponseDTO> answers = answerService.findAll(page, size);
         return new ResponseEntity<>(answers, HttpStatus.OK);
     }
+
 
 
     @DeleteMapping("/{id}")
