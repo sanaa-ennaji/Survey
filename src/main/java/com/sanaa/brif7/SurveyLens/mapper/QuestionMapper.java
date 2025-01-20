@@ -12,7 +12,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = {AnswerMapper.class})
 public interface QuestionMapper {
 
-
+    @Mapping(source = "answers", target = "answers")
     QuestionResponseDTO toResponseDTO(Question entity);
     @Mapping(target =  "subject.id", source = "subjectId")
     Question toEntity (QuestionCreateDTO requestDTO);

@@ -4,8 +4,10 @@ import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.AnswerResponseDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Answer;
 import com.sanaa.brif7.SurveyLens.entity.Question;
+import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.mapper.AnswerMapper;
 import com.sanaa.brif7.SurveyLens.repository.AnswerRepository;
 import com.sanaa.brif7.SurveyLens.service.interfaces.AnswerServiceI;
@@ -41,6 +43,13 @@ public class AnswerService implements AnswerServiceI {
             return answerMapper.toDTO(savedAnswer);
         }
 
+    @Override
+    public List<SubjectResponseDTO> getAnswerByQuestionId(Long questionId) {
+        List<Subject> subjects = subjectRepository.findBySurveyEditionId(surveyEditionId);
+        return subjects.stream()
+            .map(subjectMapper::toResponseDTO)
+            .collect(Collectors.toList());
+    }
 
     @Override
     public AnswerResponseDTO findById(Long id) {

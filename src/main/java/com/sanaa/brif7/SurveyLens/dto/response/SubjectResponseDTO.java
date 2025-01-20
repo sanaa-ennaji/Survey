@@ -3,7 +3,6 @@ package com.sanaa.brif7.SurveyLens.dto.response;
 import com.sanaa.brif7.SurveyLens.dto.embbedable.QuestionEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.dto.embbedable.SubjectEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.dto.embbedable.SurveyEditionEmbeddebleDTO;
-import com.sanaa.brif7.SurveyLens.entity.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
