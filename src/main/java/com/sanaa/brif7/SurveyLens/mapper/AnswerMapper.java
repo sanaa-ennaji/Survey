@@ -3,7 +3,9 @@ package com.sanaa.brif7.SurveyLens.mapper;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.AnswerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.AnswerResponseDTO;
+import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Answer;
+import com.sanaa.brif7.SurveyLens.entity.Subject;
 import com.sanaa.brif7.SurveyLens.mapper.components.QuestionResolver;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,5 +27,8 @@ public interface AnswerMapper {
 
     @Mapping(target = "question", source = "questionId")
     void updateEntityFromDTO(AnswerUpdateDTO answerUpdateDTO, @MappingTarget Answer answer);
+
+    @Mapping(source = "answer.id", target = "answerId")
+    AnswerResponseDTO toResponseDTO(Answer entity);
 }
 

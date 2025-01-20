@@ -44,10 +44,10 @@ public class AnswerService implements AnswerServiceI {
         }
 
     @Override
-    public List<SubjectResponseDTO> getAnswerByQuestionId(Long questionId) {
-        List<Subject> subjects = subjectRepository.findBySurveyEditionId(surveyEditionId);
-        return subjects.stream()
-            .map(subjectMapper::toResponseDTO)
+  public  List<AnswerResponseDTO> getAnswerByQuestionId(Long questionId){
+        List<Answer> answers = answerRepository.findByQuestionId(questionId);
+        return answers.stream()
+            .map(answerMapper::toResponseDTO)
             .collect(Collectors.toList());
     }
 
