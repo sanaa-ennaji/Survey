@@ -26,6 +26,7 @@ public interface SubjectMapper {
     List<QuestionEmbeddebleDTO> toDTOList(List<Question> questions);
 
     @Mapping(target = "parentSubject", source = "parentSubjectId")
+    @Mapping(target = "surveyEdition.id", source = "surveyEditionId")
     Subject toEntity(SubjectCreateDTO requestDTO);
 
     void updateEntityFromDTO(SubjectCreateDTO dto, @MappingTarget Subject subject);
