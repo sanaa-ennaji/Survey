@@ -1,11 +1,9 @@
 package com.sanaa.brif7.SurveyLens.controller;
 
 import com.sanaa.brif7.SurveyLens.annotation.Exists;
-import com.sanaa.brif7.SurveyLens.dto.PaginationDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.OwnerUpdateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.OwnerResponseDTO;
-import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Owner;
 import com.sanaa.brif7.SurveyLens.service.impl.OwnerService;
 import jakarta.validation.Valid;

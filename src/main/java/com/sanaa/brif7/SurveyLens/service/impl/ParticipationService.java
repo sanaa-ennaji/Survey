@@ -27,9 +27,10 @@ public class ParticipationService implements ParticipationServiceI {
             Question question = questionRepository.findById(responseDTO.getQuestionId())
                     .orElseThrow(() -> new IllegalArgumentException("Question not found"));
 
-            if (question.getSubject() == null) {
-                throw new IllegalArgumentException("La question ID = " + question.getId() + "do not have a subject.");
+            if (question.getSubject() == null || question.getSubject().getSurveyEdition() == null) {
+                throw new IllegalArgumentException("La question ID = " + question.getId() + " does not have a subject or a survey edition.");
             }
+
 
             if (!question.getSubject().getSurveyEdition().getSurvey().getId().equals(surveyId)) {
                 throw new IllegalArgumentException("La question " + responseDTO.getQuestionId() + " dosnot belong to the survey  " + surveyId);

@@ -11,5 +11,4 @@ import java.util.List;
 public class ParticipationDTO {
     private List<ResponseDTO> responses;
 
-
 }

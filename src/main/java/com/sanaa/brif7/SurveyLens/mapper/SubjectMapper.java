@@ -1,7 +1,6 @@
 package com.sanaa.brif7.SurveyLens.mapper;
 
 import com.sanaa.brif7.SurveyLens.dto.embbedable.QuestionEmbeddebleDTO;
-import com.sanaa.brif7.SurveyLens.dto.embbedable.SubjectEmbeddebleDTO;
 import com.sanaa.brif7.SurveyLens.dto.request.SubjectCreateDTO;
 import com.sanaa.brif7.SurveyLens.dto.response.SubjectResponseDTO;
 import com.sanaa.brif7.SurveyLens.entity.Question;
