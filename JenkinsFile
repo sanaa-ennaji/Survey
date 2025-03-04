@@ -52,7 +52,7 @@ pipeline {
 
         stage('Deploy to Cloud') {
             steps {
-                // Add steps to deploy to AWS, Azure, etc.
+                // steps to deploy to AWS, Azure, etc.
             }
         }
     }
